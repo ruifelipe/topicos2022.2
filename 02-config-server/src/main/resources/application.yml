@@ -1,8 +1,15 @@
 server:
-   port: 8888
+  port: 8888
 spring:
-   application:
-     name: 02-congig-server
-   profiles:
-      active:
-      - native
+  application:
+    name: 02-config-server
+  profiles:
+    active:
+    - native
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/fabiomarques1/02-config-server
+          search-paths:
+          - 'greeting-service*'
