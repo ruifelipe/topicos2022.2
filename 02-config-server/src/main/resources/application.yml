@@ -3,9 +3,6 @@ server:
 spring:
   application:
     name: 02-config-server
-  profiles:
-    active:
-    - native
   cloud:
     config:
       server:
