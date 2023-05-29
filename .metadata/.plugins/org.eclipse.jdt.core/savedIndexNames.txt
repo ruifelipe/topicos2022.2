@@ -168,7 +168,6 @@ INDEX VERSION 1.132+C:\Users\aluno\Documents\RuiFelipeCode\topicos2022.2\.metada
 2244620026.index
 3052662142.index
 403158779.index
-1794219431.index
 2511161296.index
 3905989084.index
 3317662679.index
