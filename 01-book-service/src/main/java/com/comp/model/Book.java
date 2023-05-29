@@ -13,7 +13,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 
-@Entity
+@Entity(name="book")
 public class Book implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +28,7 @@ public class Book implements Serializable{
 	@Column(name = "title", nullable=false, length = 250)
 	private String title;
 	
-	@Column(name = "launch_date", nullable=false, length = 180)
+	@Column(name = "launch_date", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date launchDate;
 	
