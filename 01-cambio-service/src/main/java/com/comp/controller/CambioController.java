@@ -16,22 +16,25 @@ import com.comp.repository.CambioRepository;
 @RestController
 @RequestMapping("cambio-service")
 public class CambioController {
-
+	
 	@Autowired
 	private Environment environment;
-
+	
 	@Autowired
 	private CambioRepository repository;
-
-	// http://localhost:8000/cambio-service/5/USD/BRL
-	@GetMapping(value = "/{amount}/{from}/{to}")
-	public Cambio getCambio(@PathVariable("amount") BigDecimal amount, @PathVariable("from") String from,
-			@PathVariable("to") String to) {
-
+	
+	//http://localhost:8000/cambio-service/5/USD/BRL
+	@GetMapping(value="/{amount}/{from}/{to}")
+	public Cambio getCambio(
+			@PathVariable("amount") BigDecimal amount,
+			@PathVariable("from") String from,
+			@PathVariable("to") String to
+			) {
+		
 		var cambio = repository.findByFromAndTo(from, to);
-		if (cambio == null)
-			throw new RuntimeException("Moeda não suportada!");
 
+		if (cambio==null) throw new RuntimeException("Currency Unsupported");
+		
 		String port = environment.getProperty("local.server.port");
 		BigDecimal conversionFactor = cambio.getConversionFactor();
 		BigDecimal convertedValue = conversionFactor.multiply(amount);
@@ -40,5 +43,4 @@ public class CambioController {
 		
 		return cambio;
 	}
-
 }
