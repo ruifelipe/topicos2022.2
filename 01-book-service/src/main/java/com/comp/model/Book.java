@@ -15,29 +15,29 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 
-@Entity(name="book")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Book implements Serializable{
+@Entity(name = "book")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class Book implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name = "author", nullable=false, length = 180)
+
+	@Column(name = "author", nullable = false, length = 180)
 	private String author;
-	
-	@Column(name = "title", nullable=false, length = 250)
+
+	@Column(name = "title", nullable = false, length = 250)
 	private String title;
-	
-	@Column(name = "launch_date", nullable=false)
+
+	@Column(name = "launch_date", nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date launchDate;
-	
-	@Column(name = "price", nullable=false)
+
+	@Column(name = "price", nullable = false)
 	private Double price;
-	
+
 	@Transient
 	private String currency;
 	@Transient
@@ -133,5 +133,5 @@ public class Book implements Serializable{
 				&& Objects.equals(launchDate, other.launchDate) && Objects.equals(price, other.price)
 				&& Objects.equals(title, other.title);
 	}
-	
+
 }

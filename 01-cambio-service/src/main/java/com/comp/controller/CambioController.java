@@ -16,31 +16,31 @@ import com.comp.repository.CambioRepository;
 @RestController
 @RequestMapping("cambio-service")
 public class CambioController {
-	
+
 	@Autowired
 	private Environment environment;
-	
+
 	@Autowired
 	private CambioRepository repository;
-	
-	//http://localhost:8000/cambio-service/5/USD/BRL
-	@GetMapping(value="/{amount}/{from}/{to}")
+
+	// http://localhost:8000/cambio-service/5/USD/BRL
+	@GetMapping(value = "/{amount}/{from}/{to}")
 	public Cambio getCambio(
 			@PathVariable("amount") BigDecimal amount,
 			@PathVariable("from") String from,
-			@PathVariable("to") String to
-			) {
-		
+			@PathVariable("to") String to) {
+
 		var cambio = repository.findByFromAndTo(from, to);
 
-		if (cambio==null) throw new RuntimeException("Currency Unsupported");
-		
+		if (cambio == null)
+			throw new RuntimeException("Currency Unsupported");
+
 		String port = environment.getProperty("local.server.port");
 		BigDecimal conversionFactor = cambio.getConversionFactor();
 		BigDecimal convertedValue = conversionFactor.multiply(amount);
 		cambio.setConvertedValue(convertedValue.setScale(2, RoundingMode.CEILING));
 		cambio.setEnvironment(port);
-		
+
 		return cambio;
 	}
 }
